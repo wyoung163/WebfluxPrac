@@ -21,11 +21,20 @@ public class BookController {
     }
 
     @GetMapping
-    public void getBooks(@RequestParam("text") String text) {
+    public List<Book> getBooks(@RequestParam("text") String text) {
         List<Book> books = bookService.searchBooks(text);
 
         for(Book book: books) {
             System.out.println(book.getTitle());
         }
+
+        return books;
+    }
+
+
+    @RequestMapping("/look")
+    public String lookAround() throws InterruptedException {
+        Thread.sleep(100);  // 입장 후 0.1초후에 인사한다.
+        return "책 둘러보는 중";
     }
 }

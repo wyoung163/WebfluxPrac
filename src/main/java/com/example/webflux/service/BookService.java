@@ -1,6 +1,7 @@
 package com.example.webflux.service;
 
 import com.example.webflux.dao.BookDto;
+import com.example.webflux.entity.Book;
 import com.example.webflux.repository.BookRespository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.sql.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -31,6 +33,11 @@ public class BookService {
 
     private final BookRespository bookRepository;
     private final BookDto bookDto;
+
+    public List<Book> searchBooks(String text) {
+        List<Book> books = bookRepository.findByTitleLike("%"+text+"%");
+        return books;
+    }
 
     public void postBooks(String text) throws JsonProcessingException, ParseException {
         System.out.println(clientId);
